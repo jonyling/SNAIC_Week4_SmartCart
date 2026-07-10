@@ -1,0 +1,5 @@
+condition,test_acc_mean,test_acc_std,mean_correct_of_17,lift_vs_baseline
+baseline (studio only),0.506,0.103,8.6,0.0
++classical (48),0.494,0.06,8.4,-0.012
++copy-paste (48),0.8,0.029,13.6,0.294
++both (96),0.788,0.047,13.4,0.282

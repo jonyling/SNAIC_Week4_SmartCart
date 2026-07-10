@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "class_list": [
+    "Ayam-Brand-Sardines",
+    "Bananas",
+    "Camel-Nuts",
+    "Chye-Sim",
+    "FN-Seasons",
+    "Gardenia-White-Bread",
+    "Ice-Mountain-Water",
+    "KCT-Chilli-Sauce",
+    "Kailan",
+    "Kaya-Spread",
+    "Khong-Guan-Biscuits",
+    "Koka-Noodles",
+    "Lee-Kum-Kee-Oyster-Sauce",
+    "Local-Lime",
+    "Local-Mango",
+    "Maggi-Curry-Noodles",
+    "Marigold-HL-Milk",
+    "Meiji-Fresh-Milk",
+    "Milo-Powder",
+    "Pasar-Fresh-Eggs",
+    "Pokka-Green-Tea",
+    "Prima-Taste-Laksa",
+    "Red-Chilli",
+    "SongHe-Rice",
+    "Yeos-Chrysanthemum-Tea"
+  ],
+  "artifacts": {
+    "labels.csv": true,
+    "catalog_prices.csv": true,
+    "gallery_index.npy": true,
+    "gallery_meta.csv": true,
+    "sg_products_raw.csv": true
+  }
+}

@@ -1,0 +1,14 @@
+# Regenerable / external content — notebooks re-create these on run
+GroceryStoreDataset/
+datasets/
+runs/
+generated_cgan/
+*.pt.tmp
+__pycache__/
+.ipynb_checkpoints/
+
+# OS / WSL noise
+*Zone.Identifier
+Thumbs.db
+.DS_Store
+~$*
