@@ -115,8 +115,11 @@ misread item or price at checkout → the correction is saved as a crop + true l
 (`corrections_manifest.csv`) → Day 3's "Retrain from checkout corrections" cell folds
 those into `head_v3` (it can even learn genuinely NEW products, appending SGD
 placeholder rows to the catalog) → Day 5a automatically deploys whichever head is
-newest (`head_v3` → `head_v2` → `head`) on its next run. No live retraining inside the
-app; every checkout mistake becomes training data.
+newest (`head_v3` → `head_v2` → `head`) on its next run. `Day5b_gradio_demo_v3.ipynb`
+(Maxton, PR #1) adds the in-app version of the same loop: a staff-gated **Retrain
+model** button that trains/exports `head_v3` behind an ONNX-parity gate and hot-swaps
+it live — plus a split tool for detector boxes that contain two or more products
+(see `docs/V3_CHANGELOG.md`). Either way, every checkout mistake becomes training data.
 
 ## Credits
 
@@ -127,5 +130,8 @@ scoring), YOLO Grad-CAM, crop-aware retraining concept: Hongming (originals in
 editable multi-photo cart, staff-PIN-gated corrections/price edits, correction
 persistence for retraining, dynamic class growth: Huimin (original notebook + writeup in
 `reference/huimin_originals/`, integrated with the SG bundle + confidence gate in
-`day_5/Day5b_gradio_demo_v2.ipynb` and Day 3's corrections-retrain cell). Course
-scaffolding: SNAIC Week 4 SmartCart notebooks.
+`day_5/Day5b_gradio_demo_v2.ipynb` and Day 3's corrections-retrain cell). Final app v3 —
+split-a-box tool, staff-gated in-app retrain with safe class growth, Day 3 base-pool
+cell: Maxton (PR #1, `day_5/Day5b_gradio_demo_v3.ipynb` + `docs/V3_CHANGELOG.md`).
+Per-person write-ups: `Individuals_Contribution.ipynb`. Course scaffolding: SNAIC
+Week 4 SmartCart notebooks.
