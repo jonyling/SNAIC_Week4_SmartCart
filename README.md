@@ -32,6 +32,9 @@ day_5/  Day5a_assemble_onnx.ipynb     # full pipeline + threshold calibration + 
                                       # warnings, plastic-bag question + 9% GST on the receipt,
                                       # Basket mode (FastSAM proposals + gallery open-set gate)
                                       # with per-slot Include ticks for full-basket photos
+        Day5b_gradio_demo_v3.ipynb    # v3 (superset of v2): split-a-box tool, staff-gated
+                                      # IN-APP retrain + dynamic class growth - see
+                                      # docs/V3_CHANGELOG.md (requires one Day 3 re-run first)
 docs/             # DEVELOPMENT_CHAT_LOG.md - the full AI-pair-programming transcript
                   # (how every decision, failure and measurement in this repo happened)
 sg_data/          # the dataset: scripts, provenance CSVs, images (see sg_data/README.md)

@@ -125,6 +125,60 @@ Huimin's editable-receipt loop above was verified on her standalone notebook (81
 - Her verified quote ("total 5.50 USD") is from the standalone run; the shipped app's equivalent smoke test verifies SGD receipts with GST and bag-charge math.
 
 
-# Final app - Maxton
+# Final app v3 - Maxton Huang | Split boxes, in-app retrain, dynamic class growth
 
-*(Portion to be added by Maxton.)*
+Merged as PR #1: `day_5/Day5b_gradio_demo_v3.ipynb` (a superset of the v2 app - v2 itself
+untouched, byte-verified), one new Day 3 cell, and a full write-up in `docs/V3_CHANGELOG.md`.
+Implements the instructor's feedback items end-to-end.
+
+## 1. Split tool - fix boxes that contain two or more products
+
+What: An "Item to split" picker opens a click canvas on the item's unresized crop: two
+clicks define each sub-box (with an 8px sliver guard), or **Auto-split** proposes sub-boxes
+via FastSAM (editable before applying). **Apply** classifies every sub-crop through the
+normal confidence-gated path and splices the results into the item slots in place of the
+merged item.
+
+Why: A single red detector box often covers several products (the exact failure the team's
+basket photo exposed); before this, the only remedies were re-photographing or manual entry.
+
+Result: Merged detections can now be corrected at the counter in seconds, and each sub-item
+flows through the ordinary correct/price/checkout path - including into the corrections
+manifest for retraining.
+
+## 2. In-app retrain - the self-improvement loop without leaving the app
+
+What: A staff-PIN-gated **Retrain model** button folds `corrections_manifest.csv` into a new
+head trained on Day 3's persisted feature pool (new Day 3 cell saves `base_feats.npy` +
+train/val labels), augments single-example new classes with Day-4-style jitter, exports
+`head_v3.onnx` behind a 1e-3 ONNX-parity gate, and hot-swaps the live session - `head.onnx`
+is never written, and any failure (wrong PIN, no corrections, parity) leaves the live model
+untouched.
+
+Why: v2 saved corrections but needed a notebook re-run to learn from them; a cashier can't
+re-run notebooks.
+
+Result: Type a new product's name + price at checkout, confirm with the staff PIN, press
+Retrain - the product is immediately in every dropdown, predictable by the classifier, and
+priced. Verified with a live 25 -> 26-class rehearsal (parity 2.1e-06, baseline head
+byte-identical).
+
+## 3. Dynamic class growth done safely
+
+What: Append-only class-list growth (existing logit indices never shift), before/after
+validation accuracy compared by class NAME (immune to index shifts), a gallery-embedding
+row appended per new class so Basket mode's open-set gate accepts the new product, and SGD
+placeholder catalog rows that never clobber staff-set prices.
+
+Why: Naive class growth (re-sorting the union) silently remaps every prediction; this keeps
+both retrain paths (in-app and Day 3 offline) writing the same `head_v3` + `class_list_v3.json`
+contract that Day 5a auto-deploys.
+
+## As integrated into this capstone
+
+Reviewed and re-verified on the team machine (2026-07-11): PR confirmed to touch nothing
+else (v2 byte-identical, Day 3 gained exactly 2 cells); Day 3 re-run wrote the base-pool
+artifacts; v3 executed end-to-end headless with all inherited v2 checks passing (GST/bag
+math, Basket mode 7 slots on the team basket photo, auto-handoff). One reviewer fix after
+merge: the committed launch cell had `LAUNCH = True` hardcoded from interactive testing -
+restored the headless-safe `SC_LAUNCH_GRADIO` guard so scripted runs can't hijack port 7861.
