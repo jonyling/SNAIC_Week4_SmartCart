@@ -1,0 +1,19 @@
+SmartCart SG — Week 4 Capstone (SNAIC)
+
+EDUCATIONAL USE ONLY
+
+The code in this repository was written by the project team for the SNAIC Week 4
+capstone and may be used, copied, and modified for educational and research
+purposes.
+
+The DATASET (sg_data/ and bundle_snapshot/) is NOT covered by that grant:
+
+- Product studio images and prices belong to FairPrice/NTUC and the respective
+  brand owners; they were collected for coursework under fair-dealing/educational
+  use and must not be redistributed commercially.
+- CC-licensed photos are credited to their Wikimedia Commons / Openverse
+  contributors — see the per-image license column in sg_data/*_raw.csv.
+- Team-taken photos (image_source=team in sg_data/sg_natural_raw.csv) are
+  own-photos of the project members.
+
+Do not use any part of this repository commercially. No warranty of any kind.

@@ -32,6 +32,8 @@ day_5/  Day5a_assemble_onnx.ipynb     # full pipeline + threshold calibration + 
                                       # warnings, plastic-bag question + 9% GST on the receipt,
                                       # Basket mode (FastSAM proposals + gallery open-set gate)
                                       # with per-slot Include ticks for full-basket photos
+docs/             # DEVELOPMENT_CHAT_LOG.md - the full AI-pair-programming transcript
+                  # (how every decision, failure and measurement in this repo happened)
 sg_data/          # the dataset: scripts, provenance CSVs, images (see sg_data/README.md)
 bundle_snapshot/  # ~/SmartCart_bundle at final state: weights, ONNX, lift tables, calibrated threshold
 reference/        # superseded + original teammate notebooks, kept for provenance:
@@ -42,10 +44,24 @@ reference/        # superseded + original teammate notebooks, kept for provenanc
 
 ## How to run
 
-Each notebook is self-contained (embedded toolkit cell) and runs top-to-bottom locally:
+```bash
+pip install -r requirements.txt
+```
+
+**Fastest path — just the app, zero training** (fresh clone): the repo ships the final
+trained artifacts in `bundle_snapshot/`. Copy them to where the notebooks expect the
+cross-day bundle, then run only Day 5b:
 
 ```bash
-pip install timm ultralytics onnx onnxruntime gradio grad-cam scikit-learn matplotlib
+cp -r bundle_snapshot ~/SmartCart_bundle
+jupyter notebook day_5/Day5b_gradio_demo_v2.ipynb
+# Run All, then set LAUNCH = True in the last cell -> http://127.0.0.1:7861
+```
+
+**Full pipeline** — each notebook is self-contained (embedded toolkit cell) and runs
+top-to-bottom locally:
+
+```bash
 jupyter nbconvert --to notebook --execute --inplace day_1/Day1_acquire_index.ipynb
 # then day_2 -> day_3 -> day_4 -> day_5a -> day_5b, in order
 ```
@@ -53,7 +69,8 @@ jupyter nbconvert --to notebook --execute --inplace day_1/Day1_acquire_index.ipy
 Every notebook has a `USE_SG_CATALOG` toggle — set it to `False` to run on the course-default
 GroceryStoreDataset (auto-cloned from GitHub) instead of `sg_data/`. The cross-day bundle is
 written to `~/SmartCart_bundle`; `bundle_snapshot/` here is a frozen copy of its final state.
-To launch the demo: set `SC_LAUNCH_GRADIO=1` before running Day5b's launch cell.
+To launch the demo headless/scripted instead: set `SC_LAUNCH_GRADIO=1` before executing
+Day 5b's launch cell.
 
 ## Honest findings worth reading
 

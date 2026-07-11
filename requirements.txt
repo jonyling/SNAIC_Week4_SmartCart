@@ -1,0 +1,29 @@
+# SmartCart SG — Week 4 Capstone (SNAIC)
+# Tested with Python 3.13 on the versions below (used as minimum floors).
+#
+# PyTorch note: for GPU, install torch/torchvision for YOUR CUDA first, e.g.
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+# (CPU-only also works — training/inference is just slower.)
+
+torch>=2.6
+torchvision>=0.21
+timm>=1.0.26          # frozen DINOv2 backbone (recognition, gallery, open-set gate)
+ultralytics>=8.4      # YOLO11 detector + FastSAM proposals (Basket mode)
+onnx>=1.21            # Day 5a export
+onnxruntime>=1.24     # serving the recognition head
+gradio>=6.13          # Day 5b final app
+psutil>=7.0           # free_port helper in the app launch cell
+opencv-python>=4.13   # scene composers (Day 2/4), GrabCut cutouts
+scikit-learn>=1.8     # NearestNeighbors gallery index
+matplotlib>=3.10      # diagnostics plots
+pandas>=2.3
+numpy>=2.4
+pillow>=12.0
+grad-cam>=1.5         # Day 2 YOLO Grad-CAM explainability cell
+requests>=2.33        # sg_data/ collection scripts only (re-scraping)
+
+# To execute the notebooks headless (jupyter nbconvert --execute):
+jupyter
+nbconvert>=7.17
+nbformat>=5.10
+ipykernel>=7.0
